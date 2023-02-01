@@ -10,6 +10,7 @@ public interface IPlayerRepository<TI, TC>
     Task<TI> addPlayer(clsNewPlayer player);
     Task<IEnumerable<clsPlayerEntityModel<TI, TC>>> addPlayers(IEnumerable<clsNewPlayer> players);
     Task<IEnumerable<clsPlayerEntityModel<TI, TC>>> getPlayersByGame(TI gameId);
-    Task updatePlayer(clsPlayer<TI> updatedPlayer);
+    Task<clsPlayerEntityModel<TI, TC>?> getPlayerById(TI playerId);
+    Task<clsPlayerEntityModel<TI, TC>?> updatePlayer(clsPlayer<TI> player);
     Task deletePlayer(TI id);
 }

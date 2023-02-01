@@ -43,8 +43,22 @@ try
         return "hola mundo";
     });
 
-    app.MapPost("player", 
-    [AllowAnonymous] async(IPlayerBusiness<int> bs, clsNewPlayer newPlayer) => Results.Ok(await bs.addPlayer(newPlayer)));
+    app.MapPost("player",
+    [AllowAnonymous] async (IPlayerBusiness<int> bs, clsNewPlayer newPlayer) => Results.Ok(await bs.addPlayer(newPlayer)));
+
+    app.MapPut("player",
+    [AllowAnonymous] async (IPlayerBusiness<int> bs, clsPlayer<int> player) => Results.Ok(await bs.updatePlayer(player)));
+
+    app.MapGet("player/{playerId}",
+    [AllowAnonymous] async (IPlayerBusiness<int> bs, int playerId) =>
+    {
+        var result = await bs.getPlayerById(playerId);
+        if (result != null) return Results.Ok(result);
+        return Results.NotFound(new errorMessage("Player not found."));
+    });
+
+    app.MapPost("game",
+    [AllowAnonymous] async (IGameBusiness<int> bs, clsNewPlayer newPlayer) => Results.Ok());
 
     app.Run();
 }
