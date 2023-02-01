@@ -1,5 +1,5 @@
 using chessAPI.business.interfaces;
-using chessAPI.dataAccess.repositores;
+using chessAPI.dataAccess.repositores.player;
 using chessAPI.models.player;
 
 namespace chessAPI.business.impl;

@@ -4,7 +4,7 @@ using chessAPI.dataAccess.models;
 using chessAPI.models.player;
 using Dapper;
 
-namespace chessAPI.dataAccess.repositores;
+namespace chessAPI.dataAccess.repositores.player;
 
 public sealed class clsPlayerRepository<TI, TC> : clsDataAccess<clsPlayerEntityModel<TI, TC>, TI, TC>, IPlayerRepository<TI, TC>
         where TI : struct, IEquatable<TI>
@@ -16,10 +16,10 @@ public sealed class clsPlayerRepository<TI, TC> : clsDataAccess<clsPlayerEntityM
     {
     }
 
-    public async Task<TI> addPlayer(clsNewPlayer player)
+    public async Task<TI> addPlayer(clsNewPlayer newPlayer)
     {
         var p = new DynamicParameters();
-        p.Add("EMAIL", player.email);
+        p.Add("EMAIL", newPlayer.email);
         return await add<TI>(p).ConfigureAwait(false);
     }
 
