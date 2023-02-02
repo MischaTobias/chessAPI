@@ -2,8 +2,16 @@ namespace chessAPI.models.game;
 
 public sealed class clsNewGame
 {
-    public clsNewGame() { }
+    public clsNewGame(int whites, int blacks, int winner)
+    {
+        this.whites = whites;
+        this.blacks = blacks;
+        this.winner = winner;
+    }
 
-    public int player1Id { get; set; }
-    public int player2Id { get; set; }
+    public DateTime started { get; set; } = DateTime.Now;
+    public int whites { get; set; }
+    public int blacks { get; set; }
+    public bool turn { get; set; } = true;
+    public int winner { get; set; }
 }

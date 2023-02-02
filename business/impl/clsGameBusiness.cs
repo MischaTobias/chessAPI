@@ -18,6 +18,6 @@ public sealed class clsGameBusiness<TI, TC> : IGameBusiness<TI>
     public async Task<clsGame<TI>> addGame(clsNewGame newGame)
     {
         var id = await gameRepository.addGame(newGame).ConfigureAwait(false);
-        return new clsGame<TI>(id, newGame.player1Id, newGame.player2Id);
+        return new clsGame<TI>(id);
     }
 }

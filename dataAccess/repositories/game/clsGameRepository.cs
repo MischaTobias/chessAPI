@@ -3,7 +3,6 @@ using chessAPI.dataAccess.interfaces;
 using chessAPI.dataAccess.models;
 using chessAPI.dataAccess.repositores.game;
 using chessAPI.models.game;
-using chessAPI.models.player;
 using Dapper;
 
 namespace chessAPI.dataAccess.repositores.player;
@@ -21,8 +20,11 @@ public sealed class clsGameRepository<TI, TC> : clsDataAccess<clsGameEntityModel
     public async Task<TI> addGame(clsNewGame newGame)
     {
         var p = new DynamicParameters();
-        p.Add("PLAYER1ID", newGame.player1Id);
-        p.Add("PLAYER2ID", newGame.player2Id);
+        p.Add("STARTED", newGame.started);
+        p.Add("WHITES", newGame.whites);
+        p.Add("BLACKS", newGame.blacks);
+        p.Add("TURN", newGame.turn);
+        p.Add("WINNER", newGame.winner);
         return await add<TI>(p).ConfigureAwait(false);
     }
 
@@ -31,8 +33,11 @@ public sealed class clsGameRepository<TI, TC> : clsDataAccess<clsGameEntityModel
         if (entity == null) throw new ArgumentNullException(nameof(entity));
         var p = new DynamicParameters();
         p.Add("ID", entity.id);
-        p.Add("PLAYER1ID", entity.player1Id);
-        p.Add("PLAYER2ID", entity.player2Id);
+        p.Add("STARTED", entity.started);
+        p.Add("WHITES", entity.whites);
+        p.Add("BLACKS", entity.blacks);
+        p.Add("TURN", entity.turn);
+        p.Add("WINNER", entity.winner);
         return p;
     }
 

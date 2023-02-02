@@ -52,7 +52,7 @@ where TI : struct, IEquatable<TI>
                .InstancePerDependency()
                .As<IPlayerRepository<TI, TC>>();
         builder.Register(c => new clsGameRepository<TI, TC>(c.Resolve<IRelationalContext<TC>>(),
-                                                        c.Resolve<IQPlayer>(),
+                                                        c.Resolve<IQGame>(),
                                                         c.Resolve<ILogger<clsGameRepository<TI, TC>>>()))
                 .InstancePerDependency()
                 .As<IGameRepository<TI, TC>>();
