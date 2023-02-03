@@ -13,12 +13,14 @@ public sealed class qPlayer : IQPlayer
 
     private const string _add = @"
     INSERT INTO public.player(email)
-	VALUES (@EMAIL) RETURNING id";
+	SELECT @EMAIL
+    WHERE NOT EXISTS(SELECT id FROM public.player WHERE email = @EMAIL)
+    RETURNING id";
 
     private const string _delete = @"
     DELETE FROM public.player 
     WHERE id = @ID";
-    
+
     private const string _update = @"
     UPDATE public.player
 	SET email=@EMAIL

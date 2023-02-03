@@ -45,7 +45,12 @@ try
     });
 
     app.MapPost("player",
-    [AllowAnonymous] async (IPlayerBusiness<int> bs, clsNewPlayer newPlayer) => Results.Ok(await bs.addPlayer(newPlayer)));
+    [AllowAnonymous] async (IPlayerBusiness<int> bs, clsNewPlayer newPlayer) =>
+    {
+        var result = await bs.addPlayer(newPlayer);
+        if (result.id == 0) return Results.Problem("Email already exists.");
+        return Results.Ok(result);
+    });
 
     app.MapPut("player",
     [AllowAnonymous] async (IPlayerBusiness<int> bs, clsPlayer<int> player) => Results.Ok(await bs.updatePlayer(player)));

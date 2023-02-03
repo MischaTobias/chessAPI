@@ -3,6 +3,7 @@ namespace chessAPI.models.player;
 public sealed class clsPlayer<TI>
     where TI : struct, IEquatable<TI>
 {
+    public clsPlayer() { }
     public clsPlayer(TI id, string email)
     {
         this.id = id;
@@ -10,5 +11,5 @@ public sealed class clsPlayer<TI>
     }
 
     public TI id { get; set; }
-    public string email { get; set; }
+    public string email { get; set; } = string.Empty;
 }
