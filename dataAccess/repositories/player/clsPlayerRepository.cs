@@ -44,7 +44,7 @@ public sealed class clsPlayerRepository<TI, TC> : clsDataAccess<clsPlayerEntityM
         throw new NotImplementedException();
     }
 
-    public async Task<clsPlayerEntityModel<TI, TC>?> getPlayerById(TI playerId) => await getEntity(playerId).ConfigureAwait(false);
+    public async Task<clsPlayerEntityModel<TI, TC>?> getPlayerById(TI id) => await getEntity(id).ConfigureAwait(false);
 
     public async Task<clsPlayerEntityModel<TI, TC>?> updatePlayer(clsPlayer<TI> player)
     {

@@ -17,15 +17,27 @@ public sealed class clsGameRepository<TI, TC> : clsDataAccess<clsGameEntityModel
     {
     }
 
-    public async Task<TI> addGame(clsNewGame newGame)
+    public async Task<clsGameEntityModel<TI, TC>> addGame(clsNewGame<TI> newGame)
     {
         var p = new DynamicParameters();
-        p.Add("STARTED", newGame.started);
+        p.Add("STARTED", DateTime.Now);
         p.Add("WHITES", newGame.whites);
-        p.Add("BLACKS", newGame.blacks);
-        p.Add("TURN", newGame.turn);
-        p.Add("WINNER", newGame.winner);
-        return await add<TI>(p).ConfigureAwait(false);
+        p.Add("TURN", true);
+        return await add<clsGameEntityModel<TI, TC>>(p).ConfigureAwait(false);
+    }
+
+    public async Task<clsGameEntityModel<TI, TC>?> getGameById(TI id) => await getEntity(id).ConfigureAwait(false);
+
+    public async Task<clsGameEntityModel<TI, TC>?> updateGame(clsGame<TI> game)
+    {
+        var p = new DynamicParameters();
+        p.Add("ID", game.id);
+        p.Add("STARTED", game.started);
+        p.Add("WHITES", game.whites);
+        p.Add("BLACKS", game.blacks);
+        p.Add("TURN", game.turn);
+        p.Add("WINNER", game.winner);
+        return await set<clsGameEntityModel<TI, TC>>(p, null, queries.UpdateWholeEntity, null).ConfigureAwait(false);
     }
 
     protected override DynamicParameters fieldsAsParams(clsGameEntityModel<TI, TC> entity)

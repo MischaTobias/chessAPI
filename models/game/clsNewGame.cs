@@ -1,17 +1,12 @@
 namespace chessAPI.models.game;
 
-public sealed class clsNewGame
+public sealed class clsNewGame<TI>
+    where TI : struct, IEquatable<TI>
 {
-    public clsNewGame(int whites, int blacks, int winner)
+    public clsNewGame(TI whites)
     {
         this.whites = whites;
-        this.blacks = blacks;
-        this.winner = winner;
     }
 
-    public DateTime started { get; set; } = DateTime.Now;
-    public int whites { get; set; }
-    public int blacks { get; set; }
-    public bool turn { get; set; } = true;
-    public int winner { get; set; }
+    public TI whites { get; set; }
 }

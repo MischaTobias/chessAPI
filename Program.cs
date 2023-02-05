@@ -64,7 +64,15 @@ try
     });
 
     app.MapPost("game",
-    [AllowAnonymous] async (IGameBusiness<int> bs, clsNewGame newGame) => Results.Ok(await bs.addGame(newGame)));
+    [AllowAnonymous] async (IGameBusiness<int> bs, clsNewGame<int> newGame) => Results.Ok(await bs.addGame(newGame)));
+
+    app.MapPut("game/addOpponent",
+    [AllowAnonymous] async (IGameBusiness<int> bs, clsGameOpponent<int> gameOpponent) =>
+    {
+        var result = await bs.addOpponent(gameOpponent);
+        if (result != null) return Results.Ok(result);
+        return Results.BadRequest(new errorMessage("Players cannot belong to both teams involved a game."));
+    });
 
     app.Run();
 }
