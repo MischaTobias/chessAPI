@@ -69,9 +69,17 @@ try
     app.MapPut("game/addOpponent",
     [AllowAnonymous] async (IGameBusiness<int> bs, clsGameOpponent<int> gameOpponent) =>
     {
-        var result = await bs.addOpponent(gameOpponent);
-        if (result != null) return Results.Ok(result);
-        return Results.BadRequest(new errorMessage("Players cannot belong to both teams involved a game."));
+        try
+        {
+            var result = await bs.addOpponent(gameOpponent);
+            if (result != null) return Results.Ok(result);
+            return Results.BadRequest(new errorMessage("Players cannot belong to both teams involved a game."));
+        }
+        catch (Exception)
+        {
+
+        }
+        return Results.BadRequest(new errorMessage("An error occured while trying to update the game."));
     });
 
     app.Run();
